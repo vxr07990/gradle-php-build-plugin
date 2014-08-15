@@ -5,6 +5,8 @@ import org.swissphpfriends.gradle.helper.SystemDependencies
 
 abstract class AbstractBaseTask extends DefaultTask {
 
+    Boolean verbose = false
+
     protected SystemDependencies systemDependencies = new SystemDependencies();
 
     protected void checkPhpInstallation() {

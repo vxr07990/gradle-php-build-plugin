@@ -1,8 +1,9 @@
-package org.swissphpfriends.gradle
+package org.swissphpfriends.gradle.task
 
 import org.gradle.api.tasks.TaskAction
+import org.swissphpfriends.gradle.AbstractBaseTask
 
-class ComposerInstallTask extends AbstractBaseTask {
+class ComposerInstall extends AbstractBaseTask {
 
     @TaskAction
     def composerInstall() {
