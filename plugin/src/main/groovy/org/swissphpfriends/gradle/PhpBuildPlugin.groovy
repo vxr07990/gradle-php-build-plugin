@@ -7,5 +7,6 @@ class PhpBuildPlugin implements Plugin<Project> {
 
     void apply(Project project) {
         project.task('composerInstall', type: ComposerInstallTask)
+        project.task('phpunit', type: PhpUnitTask)
     }
 }
