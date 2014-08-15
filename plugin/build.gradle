@@ -18,6 +18,12 @@ uploadArchives {
     }
 }
 
+test {
+    testLogging {
+        events "passed", "skipped", "failed"
+    }
+}
+
 task wrapper(type: Wrapper) {
     gradleVersion = '2.0'
 }
