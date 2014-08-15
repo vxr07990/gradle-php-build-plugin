@@ -1,0 +1,11 @@
+**/.idea
+**/.gradle/
+plugin/build
+repo/*
+!repo/.gitkeep
+
+**/.DS_Store
+
+user/vendor
+user/composer.phar
+user/composer.lock

@@ -1,0 +1,14 @@
+buildscript {
+    repositories {
+        maven {
+            url uri('../repo')
+        }
+    }
+    dependencies {
+        classpath group: 'org.swissphpfriends', 
+                  name: 'php-build-plugin', 
+                  version: '1.0-SNAPSHOT'
+    }
+}
+
+apply plugin: 'php-build'
