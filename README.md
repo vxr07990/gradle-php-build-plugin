@@ -2,10 +2,20 @@
 
 *A gradle plugin for building php applications*
 
-# Development
+## Featues
 
-Build jar:
+- Automatic composer installation and/or update
 
+## Development
+
+**Build JAR**
 ```bash
-$ ./gradlew clean uploadArchives
+cd plugin
+../gradlew clean uploadArchives
+```
+
+**Run Tests**
+```bash
+cd plugin
+../gradlew clean test
 ```
