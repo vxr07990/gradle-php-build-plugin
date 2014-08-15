@@ -1,6 +1,7 @@
 # Gradle php-build-plugin
 
 *A gradle plugin for building php applications*
+[![Build Status](https://travis-ci.org/swiss-php-friends/gradle-php-build-plugin.svg?branch=master)](https://travis-ci.org/swiss-php-friends/gradle-php-build-plugin)
 
 ## Featues
 
