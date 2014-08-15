@@ -1,11 +1,37 @@
-package org.swissphpfriends.gradle.helper;
+package org.swissphpfriends.gradle
 
-class ComposerHelper {
+import org.gradle.api.DefaultTask
+import org.gradle.api.tasks.TaskAction
+
+class ComposerInstallTask extends DefaultTask {
+
+    @TaskAction
+    def composerInstall() {
+        if (!this.isAvailable()) {
+            this.installPhar();
+
+        } else {
+            this.checkForSelfUpdate();
+        }
+
+        // install composer dependencies
+        println "\n## installing dependencies using composer..."
+        Process composerInstallProcess = new ProcessBuilder("php", "composer.phar", "install")
+                .redirectErrorStream(true)
+                .start()
+        composerInstallProcess.inputStream.eachLine { println it }
+        composerInstallProcess.waitFor()
+
+        if (composerInstallProcess.exitValue()) {
+            //throw new TaskExecutionException(this, new Throwable('command "php composer.phar install" failed!'))
+            println "FAILED -.-"
+        }
+    }
 
     /**
      * @return boolean True if composer.phar is available and working
      */
-    public boolean isAvailable() {
+    private boolean isAvailable() {
         def composerVersionProcess = new ProcessBuilder('php', 'composer.phar', '--version')
                 .redirectErrorStream(true)
                 .start()
@@ -19,7 +45,7 @@ class ComposerHelper {
         return true;
     }
 
-    public void installPhar() {
+    private void installPhar() {
         println "\n## composer.phar not presend in current directory. Installing..."
 
         // download installer
@@ -42,7 +68,7 @@ class ComposerHelper {
         }
     }
 
-    public void checkForSelfUpdate() {
+    private void checkForSelfUpdate() {
         println "\n## composer.phar already present. Checking for update..."
 
         Process composerSelfupdateProcess = new ProcessBuilder("php", "composer.phar", "selfupdate")
@@ -55,5 +81,4 @@ class ComposerHelper {
             println "Composer installation failed!"
         }
     }
-
 }
