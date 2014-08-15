@@ -1,19 +1,14 @@
 apply plugin: 'groovy'
 apply plugin: 'maven'
+
 dependencies {
     compile gradleApi()
     compile localGroovy()
 }
+
 repositories {
     mavenCentral()
 }
-
-task wrapper(type: Wrapper) {
-    gradleVersion = '2.0'
-}
-
-group='org.swissphpfriends'
-version='1.0-SNAPSHOT'
 
 uploadArchives {
     repositories {
@@ -22,3 +17,10 @@ uploadArchives {
         }
     }
 }
+
+task wrapper(type: Wrapper) {
+    gradleVersion = '2.0'
+}
+
+group='org.swissphpfriends'
+version='1.0-SNAPSHOT'
