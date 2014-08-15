@@ -1,3 +1,4 @@
 language: groovy
 
+install: cd plugin && ./gradlew assemble
 script: cd plugin && ./gradlew clean test uploadArchives
