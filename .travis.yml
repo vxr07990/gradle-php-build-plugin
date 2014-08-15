@@ -1,4 +1,7 @@
 language: groovy
 
-install: cd plugin && ../gradlew assemble
-script: ../gradlew clean test uploadArchives
+install:
+- cd plugin
+- TERM=dumb ../gradlew assemble
+script:
+- TERM=dumb ../gradlew clean test uploadArchives
