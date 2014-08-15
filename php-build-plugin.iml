@@ -14,6 +14,8 @@
       <excludeFolder url="file://$MODULE_DIR$/plugin/.gradle" />
       <excludeFolder url="file://$MODULE_DIR$/plugin/build" />
     </content>
+    <content url="file://$MODULE_DIR$/repo" />
+    <content url="file://$MODULE_DIR$/user" />
     <orderEntry type="inheritedJdk" />
     <orderEntry type="sourceFolder" forTests="false" />
     <orderEntry type="library" exported="" name="Gradle: gradle-core-2.0" level="project" />
