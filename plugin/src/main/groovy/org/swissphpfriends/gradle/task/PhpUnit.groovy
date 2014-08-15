@@ -9,36 +9,28 @@ class PhpUnit extends AbstractBaseTask {
 
     Boolean outputTap = false
 
+    Boolean outputTestdox = false
+
     Boolean groupIncludeMode = false
 
     Boolean groupExcludeMode = false
 
     String groups = ''
 
+    String bootstrapFile = ''
+
+    String configurationFile = ''
+
+    String coverageFormat = 'none'
+
+    String coverageTarget = ''
+
     @TaskAction
     def phpunit() {
 
         this.checkPhpInstallation()
 
-        String toolBinary = this.getToolBinaryFromComposerVendorOrSystemPath('phpunit');
-        List<String> command = new ArrayList<String>();
-        command.add(toolBinary);
-
-        if(this.verbose) {
-            command.add('-v');
-        };
-
-        if(this.groupIncludeMode) {
-            command.add('--groups ' + this.groups + ' ');
-        } else if (this.groupExcludeMode){
-            command.add('--exclude-group ' + this.groups + ' ');
-        }
-
-        if(this.outputTap) {
-            command.add('--tap');
-        }
-
-        command.add(this.path);
+        ArrayList<String> command = this.buildCommand()
 
         this.printBuildMessage('running phpunit tests...')
         if(this.verbose) {
@@ -46,6 +38,7 @@ class PhpUnit extends AbstractBaseTask {
         }
 
         Process phpUnitProcess = new ProcessBuilder(command)
+                .directory(new File(this.workingDirectory))
                 .redirectErrorStream(true)
                 .start()
 
@@ -56,5 +49,61 @@ class PhpUnit extends AbstractBaseTask {
             //throw new TaskExecutionException(this, new Throwable('command "php composer.phar install" failed!'))
             println "FAILED -.-"
         }
+    }
+
+    public ArrayList<String> buildCommand() {
+        String toolBinary = this.getToolBinaryFromComposerVendorOrSystemPath('phpunit');
+        List<String> command = new ArrayList<String>();
+        command.add(toolBinary);
+
+        // verbosity
+        if (this.verbose) {
+            command.add('-v');
+        };
+
+        // groups
+        if (this.groupIncludeMode) {
+            command.add('--groups');
+            command.add(this.groups);
+        } else if (this.groupExcludeMode) {
+            command.add('--exclude-group');
+            command.add(this.groups);
+        }
+
+        // output format
+        if (this.outputTap) {
+            command.add('--tap');
+        }
+        if (this.outputTestdox) {
+            command.add('--testdox');
+        }
+
+        // boostrap file
+        if (!this.bootstrapFile.isEmpty()) {
+            File bootstrapFile = new File(this.bootstrapFile);
+
+            if (!bootstrapFile.exists()) {
+                throw new FileNotFoundException('File does not exist: ' + this.bootstrapFile.toString());
+            }
+
+            command.add('--bootstrap');
+            command.add(this.bootstrapFile.toString());
+        }
+
+        // config file
+        if (!this.configurationFile.isEmpty()) {
+            File configurationFile = new File(this.configurationFile);
+
+            if (!configurationFile.exists()) {
+                throw new FileNotFoundException('File does not exist: ' + this.configurationFile.toString());
+            }
+
+            command.add('--configuration')
+            command.add(this.configurationFile.toString());
+        }
+
+        // path
+        command.add(this.path);
+        command
     }
 }

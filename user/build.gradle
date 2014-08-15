@@ -5,8 +5,8 @@ buildscript {
         }
     }
     dependencies {
-        classpath group: 'org.swissphpfriends', 
-                  name: 'php-build-plugin', 
+        classpath group: 'org.swissphpfriends',
+                  name: 'php-build-plugin',
                   version: '0.1-SNAPSHOT'
     }
 }
@@ -17,4 +17,6 @@ task test(type: org.swissphpfriends.gradle.task.PhpUnit) {
     path = './src'
     verbose = true
     outputTap = true
+    configurationFile = '/app/phpunit.xml'
+    bootstrapFile = 'test/bootstrap.php'
 }

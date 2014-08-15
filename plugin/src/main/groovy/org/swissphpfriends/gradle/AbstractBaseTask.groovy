@@ -7,6 +7,8 @@ abstract class AbstractBaseTask extends DefaultTask {
 
     Boolean verbose = false
 
+    String workingDirectory = './'
+
     protected SystemDependencies systemDependencies = new SystemDependencies();
 
     protected void checkPhpInstallation() {
@@ -16,7 +18,7 @@ abstract class AbstractBaseTask extends DefaultTask {
     }
 
     protected void printBuildMessage(String msg) {
-        println("\n## " + msg);
+        println("\n## " + msg + "\n----------------------------");
     }
 
     protected String getToolBinaryFromComposerVendorOrSystemPath(String binaryName) {
