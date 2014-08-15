@@ -14,4 +14,12 @@ class PhpBuildPluginTest {
 
         assertTrue(project.tasks.composerInstall instanceof ComposerInstallTask)
     }
+
+    @Test
+    public void pluginAddsPhpUnitTaskToProject() {
+        Project project = ProjectBuilder.builder().build()
+        project.apply plugin: 'php-build'
+
+        assertTrue(project.tasks.phpunit instanceof PhpUnitTask)
+    }
 }

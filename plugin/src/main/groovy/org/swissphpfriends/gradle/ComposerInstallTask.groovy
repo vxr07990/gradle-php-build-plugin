@@ -1,12 +1,14 @@
 package org.swissphpfriends.gradle
 
-import org.gradle.api.DefaultTask
 import org.gradle.api.tasks.TaskAction
 
-class ComposerInstallTask extends DefaultTask {
+class ComposerInstallTask extends AbstractBaseTask {
 
     @TaskAction
     def composerInstall() {
+
+        this.checkPhpInstallation();
+
         if (!this.isAvailable()) {
             this.installPhar();
 
@@ -15,17 +17,13 @@ class ComposerInstallTask extends DefaultTask {
         }
 
         // install composer dependencies
-        println "\n## installing dependencies using composer..."
+        this.printBuildMessage('installing dependencies using composer...');
+
         Process composerInstallProcess = new ProcessBuilder("php", "composer.phar", "install")
                 .redirectErrorStream(true)
                 .start()
         composerInstallProcess.inputStream.eachLine { println it }
         composerInstallProcess.waitFor()
-
-        if (composerInstallProcess.exitValue()) {
-            //throw new TaskExecutionException(this, new Throwable('command "php composer.phar install" failed!'))
-            println "FAILED -.-"
-        }
     }
 
     /**
@@ -46,7 +44,7 @@ class ComposerInstallTask extends DefaultTask {
     }
 
     private void installPhar() {
-        println "\n## composer.phar not presend in current directory. Installing..."
+        this.printBuildMessage('composer.phar not presend in current directory. Installing...');
 
         // download installer
         def address = 'https://getcomposer.org/installer'
@@ -69,7 +67,7 @@ class ComposerInstallTask extends DefaultTask {
     }
 
     private void checkForSelfUpdate() {
-        println "\n## composer.phar already present. Checking for update..."
+        this.printBuildMessage('composer.phar already present. Checking for update...');
 
         Process composerSelfupdateProcess = new ProcessBuilder("php", "composer.phar", "selfupdate")
                 .redirectErrorStream(true)
@@ -77,7 +75,7 @@ class ComposerInstallTask extends DefaultTask {
         composerSelfupdateProcess.inputStream.eachLine { println it }
         composerSelfupdateProcess.waitFor()
 
-        if (process.exitValue()) {
+        if (composerSelfupdateProcess.exitValue()) {
             println "Composer installation failed!"
         }
     }
