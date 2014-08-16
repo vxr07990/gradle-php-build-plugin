@@ -22,11 +22,11 @@ task test(type: org.swissphpfriends.gradle.task.PhpUnit) {
     outputTestdox = false
     groupIncludeMode = true
     groupExcludeMode = false
-    groups = 'unit'
+    groups = "unit"
     configurationFile = "/app/phpunit.xml"
     bootstrapFile = "test/bootstrap.php"
-    coverageFormat = 'html'
-    coverageTarget = 'build/coverage'
+    coverageFormat = "html"
+    coverageTarget = "build/coverage"
 }
 ```
 
