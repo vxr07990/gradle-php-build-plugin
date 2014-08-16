@@ -1,7 +1,6 @@
 {
   "require": {
-      "psr/log": "dev-master",
-      "phpunit/phpunit": "4.4.*@dev"
+      "psr/log": "dev-master"
   },
   "minimum-stability": "dev"
 }
