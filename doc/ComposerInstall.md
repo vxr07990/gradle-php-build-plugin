@@ -13,9 +13,15 @@ it will run ```php composer.phar install```.
 
 ## Customization
 
+The task type ```org.swissphpfriends.gradle.task.ComposerInstall``` can be customized in your ```build.gradle```:
+
 ```java
-task install(type: org.swissphpfriends.gradle.task.ComposerInstall) {
+task installDeps(type: org.swissphpfriends.gradle.task.ComposerInstall) {
     workingDirectory = "./any/subfolder"
     doNotUpdatePhar = true
 }
 ```
+
+### Parameters
+- ```String workingDirectory``` - The directory where composer should be executed. Default: ```./```
+- ```Boolean doNotUpdatePhar``` - Run ```composer.phar selfupdate``` before install. Default: ```true```
