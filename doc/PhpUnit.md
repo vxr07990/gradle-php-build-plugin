@@ -1,4 +1,4 @@
-# TASK: ComposerInstall
+# TASK: PhpUnit
 
 This task runs phpunit tests
 
