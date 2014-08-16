@@ -12,7 +12,7 @@ This will run phpunit tests by executing ```phpunit ./``` without any other para
 
 ## Customization
 
-The task type ```org.swissphpfriends.gradle.task.ComposerInstall``` can be customized in your ```build.gradle```:
+The task type ```org.swissphpfriends.gradle.task.PhpUnit``` can be customized in your ```build.gradle```:
 
 ```java
 task test(type: org.swissphpfriends.gradle.task.PhpUnit) {
