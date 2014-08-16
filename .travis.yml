@@ -1,7 +1,7 @@
 language: groovy
 
 install:
-- cd ../plugin
+- cd plugin
 - TERM=dumb ../gradlew assemble
 script:
 - TERM=dumb ../gradlew -i clean test
