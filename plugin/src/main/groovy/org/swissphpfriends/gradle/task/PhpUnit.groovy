@@ -53,7 +53,7 @@ class PhpUnit extends AbstractBaseTask {
 
     public ArrayList<String> buildCommand() {
         String toolBinary = this.getToolBinaryFromComposerVendorOrSystemPath('phpunit');
-        List<String> command = new ArrayList<String>();
+        ArrayList<String> command = new ArrayList<String>();
         command.add(toolBinary);
 
         // verbosity
@@ -104,6 +104,7 @@ class PhpUnit extends AbstractBaseTask {
 
         // path
         command.add(this.path);
-        command
+
+        return command;
     }
 }

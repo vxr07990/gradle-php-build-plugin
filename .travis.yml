@@ -4,4 +4,4 @@ install:
 - cd plugin
 - TERM=dumb ../gradlew assemble
 script:
-- TERM=dumb ../gradlew clean test uploadArchives
+- TERM=dumb ../gradlew -i clean test
