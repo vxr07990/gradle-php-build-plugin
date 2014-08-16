@@ -15,7 +15,7 @@ it will run ```php composer.phar install```.
 
 ```java
 task install(type: org.swissphpfriends.gradle.task.ComposerInstall) {
-    workingDirectory = './any/subfolder'
+    workingDirectory = "./any/subfolder"
     doNotUpdatePhar = true
 }
 ```
