@@ -23,12 +23,16 @@ task installDeps(type: org.swissphpfriends.gradle.task.ComposerInstall) {
 ```
 
 ### Parameters
-**workingDirectory**
+##### workingDirectory
 *Description:* The directory where composer should be executed
+
 *Type:* String
+
 *Default:* ```./```
 
-**doNotUpdatePhar**
+##### doNotUpdatePhar
 *Description:* Run ```composer.phar selfupdate``` before install
+
 *Type:* Boolean
+
 *Default:* ```true```
