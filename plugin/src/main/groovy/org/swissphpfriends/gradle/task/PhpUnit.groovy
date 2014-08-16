@@ -52,9 +52,10 @@ class PhpUnit extends AbstractBaseTask {
     }
 
     public ArrayList<String> buildCommand() {
-        String toolBinary = this.getToolBinaryFromComposerVendorOrSystemPath('phpunit');
         ArrayList<String> command = new ArrayList<String>();
-        command.add(toolBinary);
+
+        // executable
+        command.add(this.executable);
 
         // verbosity
         if (this.verbose) {
@@ -63,7 +64,7 @@ class PhpUnit extends AbstractBaseTask {
 
         // groups
         if (this.groupIncludeMode) {
-            command.add('--groups');
+            command.add('--group');
             command.add(this.groups);
         } else if (this.groupExcludeMode) {
             command.add('--exclude-group');
@@ -82,10 +83,6 @@ class PhpUnit extends AbstractBaseTask {
         if (!this.bootstrapFile.isEmpty()) {
             File bootstrapFile = new File(this.bootstrapFile);
 
-            if (!bootstrapFile.exists()) {
-                throw new FileNotFoundException('File does not exist: ' + this.bootstrapFile.toString());
-            }
-
             command.add('--bootstrap');
             command.add(this.bootstrapFile.toString());
         }
@@ -94,12 +91,16 @@ class PhpUnit extends AbstractBaseTask {
         if (!this.configurationFile.isEmpty()) {
             File configurationFile = new File(this.configurationFile);
 
-            if (!configurationFile.exists()) {
-                throw new FileNotFoundException('File does not exist: ' + this.configurationFile.toString());
-            }
-
             command.add('--configuration')
             command.add(this.configurationFile.toString());
+        }
+
+        //coverage
+        if (!this.coverageFormat.equals('none')) {
+            File coverageTarget = new File(this.coverageTarget);
+
+            command.add('--coverage-' + this.coverageFormat)
+            command.add(this.coverageTarget.toString());
         }
 
         // path
