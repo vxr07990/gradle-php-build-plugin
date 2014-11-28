@@ -1,9 +1,11 @@
 package org.swissphpfriends.gradle.task
 
-import org.gradle.api.Task
-import org.junit.Test
-import org.gradle.testfixtures.ProjectBuilder
+import org.apache.commons.io.FileUtils
 import org.gradle.api.Project
+import org.gradle.api.Task
+import org.gradle.testfixtures.ProjectBuilder
+import org.junit.After
+import org.junit.Test
 
 import static org.junit.Assert.*
 
@@ -21,9 +23,9 @@ class ComposerInstallTest {
         Task composerInstallTask = this.getTaskInstance();
 
         assertTrue(composerInstallTask.hasProperty('workingDirectory'))
-        assertEquals('./',composerInstallTask.getProperty('workingDirectory'))
-        composerInstallTask.setProperty('workingDirectory', '../user', );
-        assertEquals('../user',composerInstallTask.getProperty('workingDirectory'))
+        assertEquals('./', composerInstallTask.getProperty('workingDirectory'))
+        composerInstallTask.setProperty('workingDirectory', '../user',);
+        assertEquals('../user', composerInstallTask.getProperty('workingDirectory'))
 
         composerInstallTask.run();
 
@@ -38,6 +40,21 @@ class ComposerInstallTest {
 
         File composerInstaller = new File('../user/installer');
         assertFalse(composerInstaller.exists());
+    }
+
+    @After
+    public void cleanup() {
+        File composerBin = new File("../user/composer.phar");
+
+        if (composerBin.exists()) {
+            composerBin.delete();
+        }
+
+        File vendorDir = new File("../user/vendor");
+
+        if (vendorDir.exists()) {
+            FileUtils.deleteDirectory(vendorDir);
+        }
     }
 
     private Task getTaskInstance() {
